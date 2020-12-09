@@ -1,0 +1,11 @@
+SERVICE:
+    SERVICE_IP: "0.0.0.0"
+    PORT: 5050
+    LOG_PATH: "logfile"
+    CLASSES: "models/classes.txt"
+
+    DETECT_WEIGHT: "models/model_final.pth"
+    DETECT_CONFIG: "detectron2/configs/COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
+    THRESHOLD: 0.5
+    NUMBER_CLASS: 4
+    DEVICE: 'cpu'
