@@ -79,8 +79,8 @@ def predict_image():
         print(list_boxes)
 
         # draw
-        image = draw_bbox(image, list_boxes, list_scores, list_classes)
-        cv2.imwrite("image.jpg", image)
+        # image = draw_bbox(image, list_boxes, list_scores, list_classes)
+        # cv2.imwrite("image.jpg", image)
 
         i = 0
         len_boxes = len(list_boxes)
