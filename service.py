@@ -74,13 +74,11 @@ def predict_image():
         
         height, width, channels = image.shape 
         center_image = (width//2, height//2)
-        print("shape image: ", (width, height))
         list_boxes, list_scores, list_classes = predict(image, PREDICTOR, CLASSES)
-        print(list_boxes)
 
         # draw
-        # image = draw_bbox(image, list_boxes, list_scores, list_classes)
-        # cv2.imwrite("image.jpg", image)
+        image = draw_bbox(image, list_boxes, list_scores, list_classes)
+        cv2.imwrite("image.jpg", image)
 
         i = 0
         len_boxes = len(list_boxes)
@@ -102,15 +100,24 @@ def predict_image():
             center = (center_x, center_y)
             # print("max: ", (x1, y1))
             # print("min: ", (x2, y2))
-            if list_classes[i] == 'top_right':
+            # if list_classes[i] == 'top_right':
+            #     point_tr = center
+            # elif list_classes[i] == 'bottom_left':
+            #     point_bl = center
+            # elif list_classes[i] == 'bottom_right':
+            #     point_br = center 
+            # else:
+            #     point_tl = center 
+            
+            if center[0] < center_image[0] and center[1] < center_image[1]:
+                point_tl = center
+            elif center[0] > center_image[0] and center[1] < center_image[1]:
                 point_tr = center
-            elif list_classes[i] == 'bottom_left':
-                point_bl = center
-            elif list_classes[i] == 'bottom_right':
+            elif center[0] > center_image[0] and center[1] > center_image[1]:
                 point_br = center 
             else:
-                point_tl = center 
-            
+                point_bl = center
+
             i += 1
         
         result = {'point_tl': point_tl, 'point_tr': point_tr, 'point_bl': point_bl, 'point_br': point_br}
